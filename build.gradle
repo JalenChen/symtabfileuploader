@@ -1,0 +1,119 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+def buglyPluginJar = 'lib/buildSrc.jar'
+version = "1.0.1"
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '22.0.1'
+    resourcePrefix "buglyplugin__"
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+def siteUrl = "https://github.com/JalenChen/SymtabFileUploader"
+def gitUrl = "https://github.com/JalenChen/SymtabFileUploader.git"
+
+group = "com.tencent.bugly"
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom.project {
+            // packaging 'jar'
+            // Add your description here
+            name 'CrashReport for Android'
+            url siteUrl
+            // Set your license
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+            developers {
+                developer {
+                    id 'jalenchen'
+                    name 'wenkechen'
+                    email 'jalenchen@qq.com'
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
+            }
+        }
+    }
+}
+
+task realeaseJar << {
+    artifacts.add('archives', file(buglyPluginJar));
+}
+
+preBuild.dependsOn realeaseJar
+
+task sourcesJar(type: Jar) {
+    from zipTree(buglyPluginJar)
+    exclude 'META-INF'
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    options.encoding = 'UTF-8'
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+
+    pkg {
+        repo = "maven"
+        name = "SymtabFileUploader"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
