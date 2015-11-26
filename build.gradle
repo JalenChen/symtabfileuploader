@@ -2,8 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-def buglyPluginJar = 'lib/buildSrc.jar'
-version = "1.0.1"
+group = "com.tencent.bugly"
+version = "1.3.4"
+
+def buglyPluginJar = "lib/symtabfileuploader-${version}.jar"
 
 android {
     compileSdkVersion 19
@@ -33,12 +35,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.tools.build:gradle:1.2.3'
+    compile 'org.apache.httpcomponents:httpclient:4.3.6'
+    compile 'org.apache.httpcomponents:httpmime:4.3.6'
 }
 
 def siteUrl = "https://github.com/JalenChen/SymtabFileUploader"
 def gitUrl = "https://github.com/JalenChen/SymtabFileUploader.git"
-
-group = "com.tencent.bugly"
 
 install {
     repositories.mavenInstaller {
@@ -46,19 +49,19 @@ install {
         pom.project {
             // packaging 'jar'
             // Add your description here
-            name 'CrashReport for Android'
+            name = 'Uploading mapping file and symtab file which is extracted from debug so file'
             url siteUrl
             // Set your license
             licenses {
                 license {
-                    name 'The Apache Software License, Version 2.0'
+                    name = 'The Apache Software License, Version 2.0'
                     url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                 }
             }
             developers {
                 developer {
                     id 'jalenchen'
-                    name 'wenkechen'
+                    name = 'wenkechen'
                     email 'jalenchen@qq.com'
                 }
             }
@@ -71,11 +74,11 @@ install {
     }
 }
 
-task realeaseJar << {
+task releasePlugJar(type: Copy) {
     artifacts.add('archives', file(buglyPluginJar));
 }
 
-preBuild.dependsOn realeaseJar
+preBuild.dependsOn releasePlugJar
 
 task sourcesJar(type: Jar) {
     from zipTree(buglyPluginJar)
