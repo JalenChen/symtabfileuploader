@@ -1,39 +1,29 @@
-apply plugin: 'com.android.library'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+    }
+}
+
+apply plugin: 'groovy'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 group = "com.tencent.bugly"
-version = "1.3.4"
+version = "1.3.6"
 
-def buglyPluginJar = "lib/symtabfileuploader-${version}.jar"
-
-android {
-    compileSdkVersion 19
-    buildToolsVersion '22.0.1'
-    resourcePrefix "buglyplugin__"
-    defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    android {
-        lintOptions {
-            abortOnError false
-        }
-    }
-
-}
+def symtabToolVersion = '2.3.1'
+def buglySymbolAndroidJar = "libs/buglySymbolAndroid${symtabToolVersion}.jar"
 
 dependencies {
+    repositories {
+        jcenter()
+    }
+    compile gradleApi()
+    compile localGroovy()
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.tools.build:gradle:1.2.3'
     compile 'org.apache.httpcomponents:httpclient:4.3.6'
@@ -74,31 +64,33 @@ install {
     }
 }
 
-task releasePlugJar(type: Copy) {
-    artifacts.add('archives', file(buglyPluginJar));
+task unzipSymbolToolJarToClasses(type: Copy) {
+    from zipTree(buglySymbolAndroidJar)
+    exclude 'META-INF'
+    into 'build/classes/main/'
 }
 
-preBuild.dependsOn releasePlugJar
+jar.dependsOn unzipSymbolToolJarToClasses
 
 task sourcesJar(type: Jar) {
-    from zipTree(buglyPluginJar)
+    // from zipTree(buglyPluginJar)
+    from 'src/main/groovy'
     exclude 'META-INF'
     classifier = 'sources'
 }
 
-task javadoc(type: Javadoc) {
-    options.encoding = 'UTF-8'
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+groovydoc {
+    includePrivate = true
+    source = 'src/main/groovy'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
+task groovydocJar(type: Jar, dependsOn: groovydoc) {
     classifier = 'javadoc'
-    from javadoc.destinationDir
+    from groovydoc.destinationDir
 }
 
 artifacts {
-    archives javadocJar
+    archives groovydocJar
     archives sourcesJar
 }
 
