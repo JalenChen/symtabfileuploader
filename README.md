@@ -1,5 +1,5 @@
 # BuglyPlugin
-**符号表文件上传插件最新版本为：1.3.5，注意插件位于[JCenter仓库](http://jcenter.bintray.com/com/tencent/bugly/symtabfileuploader/)。**
+**符号表文件上传插件最新版本为：1.3.6，注意插件位于[JCenter仓库](http://jcenter.bintray.com/com/tencent/bugly/symtabfileuploader/)。**
 
 在项目的buid.gradle文件的dependencies（buildscript部分）中添加：
 ``` gradle
