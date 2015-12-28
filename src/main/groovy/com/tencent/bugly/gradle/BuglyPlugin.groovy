@@ -596,6 +596,9 @@ class BuglyPlugin implements Plugin<Project> {
     private Vector<File> getMappingFile(Project project, String flavorName) {
         if (null == project) {
             return null
+        }        
+        if (!project.hasProperty("android")) {
+            return null
         }
         Vector<File> mappingFiles = new Vector<File>()
         if (project.android.hasProperty("applicationVariants")) {
@@ -806,6 +809,9 @@ class BuglyPlugin implements Plugin<Project> {
         this.project = project
         // Create extended properties of Bugly plugin.
         project.extensions.create("bugly", BuglyPluginExtension)
+        if (!project.hasProperty("android")) {
+            return
+        }
         /**
          *  Create task and set proper stage to execute.
          *
