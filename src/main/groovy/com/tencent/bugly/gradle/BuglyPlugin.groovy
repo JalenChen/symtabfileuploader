@@ -542,7 +542,7 @@ class BuglyPlugin implements Plugin<Project> {
         if (project == null) {
             return soFiles
         }
-        if (!flavorName.isEmpty()) {
+        if (flavorName != null && !flavorName.isEmpty()) {
             flavorName += "/"
         }
         String variantFilter = "**/" + flavorName + "release/obj/**/*.so"
@@ -610,9 +610,9 @@ class BuglyPlugin implements Plugin<Project> {
                     File mappingFile = variant.getMappingFile()
                     if (null != mappingFile) {
                         String mappingFileSuffix = project.name
-                        if (!flavorName.isEmpty()) {
+                        if (flavorName != null && !flavorName.isEmpty()) {
                             mappingFileSuffix += "-" + flavorName
-                        }
+                        }      
                         mappingFileSuffix += "-mapping.txt"
                         String mappingFileName = mappingFile.getParent() + File.separator + mappingFileSuffix
                         mappingFile.renameTo(new File(mappingFileName))
@@ -629,7 +629,7 @@ class BuglyPlugin implements Plugin<Project> {
                     File mappingFile = variant.getMappingFile()                    
                     if (null != mappingFile) {
                         String mappingFileSuffix = project.name
-                        if (!flavorName.isEmpty()) {
+                        if (flavorName != null && !flavorName.isEmpty()) {
                             mappingFileSuffix += "-" + flavorName
                         }
                         mappingFileSuffix += "-mapping.txt"
