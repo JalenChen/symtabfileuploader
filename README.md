@@ -9,7 +9,7 @@ classpath 'com.tencent.bugly:symtabfileuploader:<version>'
 `其中version为符号表文件上传插件版本号`
 
 在module的buid.gradle文件的顶部添加：
-``` gradle
+```
 apply plugin: 'bugly'
 
 bugly {
@@ -30,7 +30,7 @@ bugly {
 | outputDir | String | 符号表文件输出路径 |
 
 **`<Project>/build.gradle`**文件如下：
-``` gradle
+```
 buildscript {
     repositories {
         jcenter()
@@ -43,7 +43,7 @@ buildscript {
 `其中"1.2.3"为SDK版本号，更新插件只需要修改这个版本号并Rebuild一下工程即可。`
 
 **`<Project>/<Module>/build.gradle`**文件如下：
-``` gradle
+```
 apply plugin: 'bugly'
 
 bugly {	
