@@ -1,5 +1,5 @@
 # BuglyPlugin
-**符号表文件上传插件最新版本为：1.3.6，注意插件位于[JCenter仓库](http://jcenter.bintray.com/com/tencent/bugly/symtabfileuploader/)。**
+**插件位于[JCenter仓库](http://jcenter.bintray.com/com/tencent/bugly/symtabfileuploader/)。**
 
 在项目的buid.gradle文件的dependencies（buildscript部分）中添加：
 ``` gradle
@@ -20,6 +20,7 @@ bugly {
 `其中appId和appKey是必填的，App ID和App Key可以从“设置->产品信息里面获取。”`
 
 除了appId和appKey之外，还可以设置其他属性，属性列表如下：
+
 |属性|值|说明|
 |--|--|--|
 |appId|String|App ID|
