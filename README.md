@@ -20,13 +20,14 @@ bugly {
 `其中appId和appKey是必填的，App ID和App Key可以从“设置->产品信息里面获取。”`
 
 除了appId和appKey之外，还可以设置其他属性，属性列表如下：
-|属性|值|说明|
-|:--|:--|:--|
-|appId|String|App ID|
-|appKey|String|App Key|
-|execute|boolean|插件开关|
-|upload|boolean|上传开关|
-|outputDir|String|符号表文件输出路径|
+
+| 属 性 | 值 | 说 明 |
+| :-- | :-- | :-- |
+| appId | String | App ID |
+| appKey | String | App Key |
+| execute | boolean | 插件开关 |
+| upload | boolean | 上传开关 |
+| outputDir | String | 符号表文件输出路径 |
 
 **`<Project>/build.gradle`**文件如下：
 ``` gradle
