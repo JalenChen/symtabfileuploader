@@ -15,7 +15,7 @@
 
  **举一个实例：**
 
-![Alt text](./堆栈.png)
+![Alt text](http://bugly.qq.com/img/white-book/android5.png?v=20160203165136)
 
 **Bugly Android提供了自动和手动两种方法配置符号表。**
 
@@ -24,6 +24,7 @@
 **符号表文件上传插件最新版本为：1.3.6，注意插件位于[JCenter仓库](http://jcenter.bintray.com/com/tencent/bugly/symtabfileuploader/)。**
 
 在项目的buid.gradle文件的dependencies（buildscript部分）中添加：
+
 ``` gradle
 classpath 'com.tencent.bugly:symtabfileuploader:latest.release'
 ```
@@ -106,7 +107,7 @@ uploadReleaseSymtabFile任务将执行以下动作：
 
 3. 在Bugly的**版本管理页面（产品页面 -> 设置 -> 版本管理）**上传相应版本的符号表文件，如下图所示：
 
-![Alt text](./符号表配置.png)
+![Alt text](http://bugly.qq.com/img/white-book/android6.jpg?v=20160203165136)
 
 ---
 ### 符号表HTTP上传接口
