@@ -20,7 +20,6 @@ bugly {
 `其中appId和appKey是必填的，App ID和App Key可以从“设置->产品信息里面获取。”`
 
 除了appId和appKey之外，还可以设置其他属性，属性列表如下：
-
 | 属 性 | 值 | 说 明 |
 | :-- | :-- | :-- |
 | appId | String | App ID |
