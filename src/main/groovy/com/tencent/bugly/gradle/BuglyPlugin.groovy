@@ -527,6 +527,9 @@ class BuglyPlugin implements Plugin<Project> {
         }
         SymtabToolAndroid.main(args)
         String symtabFileName = SymtabToolAndroid.getSymtabFileName()
+        if (null == symtabFileName) {
+            return null
+        }
         return new File(symtabFileName)
     }
 
