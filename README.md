@@ -14,7 +14,7 @@
 
  **举一个实例：**
 
-![Alt text](http://bugly.qq.com/img/white-book/android5.png?v=20160203165136)
+![Alt text](https://bugly.qq.com/docs/img/symbol-android/3001.png?v=20170912151050)
 
 **Bugly Android提供了自动和手动两种方法配置符号表。**
 
@@ -104,9 +104,8 @@ uploadReleaseSymtabFile任务将执行以下动作：
 	`定位Debug SO文件方法和工具的使用方法请参考：符号表工具Android版-使用指南`
 	`注意，不同架构的SO文件需要分别生成对应的符号表文件并上传！`
 
-3. 在Bugly的**版本管理页面（产品页面 -> 设置 -> 版本管理）**上传相应版本的符号表文件，如下图所示：
+3. 在Bugly的**版本管理页面（产品页面 -> 设置 -> 版本管理）**上传相应版本的符号表文件。
 
-![Alt text](http://bugly.qq.com/img/white-book/android6.jpg?v=20160203165136)
 
 ---
 ### 符号表HTTP上传接口
